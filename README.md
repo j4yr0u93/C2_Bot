@@ -5,5 +5,4 @@ py 3 bot for Computer.Coffee discord
 
 reqs:
 - asyncio
-- uvloop
 - discord
