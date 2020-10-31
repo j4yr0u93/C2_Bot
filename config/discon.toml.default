@@ -1,0 +1,4 @@
+#discord config stored here
+title = "c2 discord configuration"
+[secure]
+TOKEN = "token"
