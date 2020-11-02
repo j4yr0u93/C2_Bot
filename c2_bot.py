@@ -4,8 +4,10 @@ import discord
 from C2_Bot import __version__, discon, mod_list
 
 for sublibrary in mod_list:
+    functions_list = []
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
+        exec("functions_list.append(dir(C2_Bot.mods.{s})".format(s=sublibrary))
     except Exception as e:
         print(e)
 
@@ -18,7 +20,9 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(mod_list)
+    print(functions_list)
     test()
+
 
 
 #message user welcome message when they join server
