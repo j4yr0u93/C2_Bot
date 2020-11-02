@@ -1,16 +1,18 @@
 import asyncio
 import discord
+from C2_Bot.mods import *
 
-from C2_Bot import __version__, discon
+from C2_Bot import __version__, discon, MOD_PATH
 
 def main():
-    print('baba booey')
+    return
 
 client = discord.Client()
 
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    print(dir(MOD_PATH))
 
 #message user welcome message when they join server
 #@client.event
@@ -25,8 +27,9 @@ async def on_message(message):
     #ignore bots
     if message.author.bot:
         return
+    #run a command if prexix matches and first 'word' after prefixes is in 'commands'
+    elif message.content.startswith(discon['options']['PREFIX']) && message.content[len(discon['options']['PREFIX']):].split[0] in commands:
+        return
 
-    elif message.content.startswith('$test'):
-        await message.channel.send('Hello!')
 
 client.run(discon['secure']['TOKEN'])
