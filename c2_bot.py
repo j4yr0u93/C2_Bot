@@ -7,7 +7,7 @@ for sublibrary in mod_list:
     functions_list = []
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
-        exec("functions_list.append(dir(C2_Bot.mods.{s})".format(s=sublibrary))
+        exec("functions_list.append(dir(C2_Bot.mods.{s}))".format(s=sublibrary))
     except Exception as e:
         print(e)
 
