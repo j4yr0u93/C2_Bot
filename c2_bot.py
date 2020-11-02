@@ -28,8 +28,8 @@ async def on_message(message):
     if message.author.bot:
         return
     #run a command if prexix matches and first 'word' after prefixes is in 'commands'
-    elif message.content.startswith(discon['options']['PREFIX']) && message.content[len(discon['options']['PREFIX']):].split[0] in commands:
-        return
+#    elif message.content.startswith(discon['options']['PREFIX']) && message.content[len(discon['options']['PREFIX']):].split[0] in commands:
+#        return
 
 
 client.run(discon['secure']['TOKEN'])
