@@ -1,4 +1,8 @@
+import asyncio
+import discord
 
-def help(module):
-    print('test')
-    return()
+allowed_functions = ['test']
+
+async def test():
+    print('Good test!')
+    return
