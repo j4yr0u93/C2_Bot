@@ -10,7 +10,7 @@ def get_mod_list(path):
     for i in mod_list_raw:
         if i[-3:-1] == '.py':
             mod_list.append(i[:-4])
-    return(mod_list)
+            return(mod_list)
 
 
 def load_config(path):
