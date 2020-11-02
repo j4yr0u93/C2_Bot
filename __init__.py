@@ -10,7 +10,7 @@ def get_mod_list(path):
     mod_list = []
     for i in mod_list_raw:
         if i[-3:] == '.py':
-            mod_list.append(i[:-4])
+            mod_list.append(i[:-3])
     return mod_list
 
 
