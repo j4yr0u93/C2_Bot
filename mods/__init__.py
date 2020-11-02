@@ -2,7 +2,6 @@ import os.path
 
 MOD_PATH = os.path.join('C2_Bot', 'mods')
 
-
 def get_mod_list(path):
     mod_list_raw = os.listdir(MOD_PATH)
     mod_list = []
