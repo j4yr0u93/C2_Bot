@@ -13,7 +13,6 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(mod_list)
-    dir(mod_list[1])
     test()
 
 
