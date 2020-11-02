@@ -4,7 +4,14 @@ import qtoml as toml
 __version__ = 'hazelnut'
 CONFIG_PATH = os.path.join('C2_Bot', 'config', 'discon.toml')
 MOD_PATH = os.path.join('C2_Bot', 'mods')
-mod_list = os.listdir(MOD_PATH)
+
+def get_mod_list():
+    mod_list_raw = os.listdir(MOD_PATH)
+    for i in mod_list_raw:
+        if i[-3:-1] == '.py':
+            mod_list.append(i[:-4])
+    return(mod_list)
+
 
 def load_config(path):
     with open(path, 'r') as f:
@@ -12,3 +19,4 @@ def load_config(path):
         return config
 
 discon = load_config(CONFIG_PATH)
+mod_list = get_mod_list(MOD_PATH)
