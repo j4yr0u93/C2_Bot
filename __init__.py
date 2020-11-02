@@ -2,7 +2,7 @@ import os.path
 import qtoml as toml
 
 __version__ = 'hazelnut'
-CONFIG_PATH = os.path.join('config', 'discon.toml')
+CONFIG_PATH = os.path.join('C2_Bot', 'config', 'discon.toml')
 
 def load_config(path):
     with open(path, 'r') as f:
