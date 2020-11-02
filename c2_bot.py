@@ -2,7 +2,7 @@ import asyncio
 import discord
 from C2_Bot.mods import *
 
-from C2_Bot import __version__, discon, MOD_PATH
+from C2_Bot import __version__, discon, mod_list
 
 def main():
     return
@@ -12,7 +12,8 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    print(dir(MOD_PATH))
+    print(mod_list)
+
 
 #message user welcome message when they join server
 #@client.event
