@@ -13,6 +13,7 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(mod_list)
+    test()
 
 
 #message user welcome message when they join server
@@ -29,7 +30,7 @@ async def on_message(message):
     if message.author.bot:
         return
     #run a command if prexix matches and first 'word' after prefixes is in 'commands'
-#    elif message.content.startswith(discon['options']['PREFIX']) && message.content[len(discon['options']['PREFIX']):].split[0] in commands:
+#elif message.content.startswith(discon['options']['PREFIX']) && message.content[len(discon['options']['PREFIX']):].split[0] in mod_list:
 #        return
 
 
