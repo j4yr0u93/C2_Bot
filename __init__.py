@@ -5,7 +5,7 @@ __version__ = 'hazelnut'
 CONFIG_PATH = os.path.join('C2_Bot', 'config', 'discon.toml')
 MOD_PATH = os.path.join('C2_Bot', 'mods')
 
-def get_mod_list():
+def get_mod_list(path):
     mod_list_raw = os.listdir(MOD_PATH)
     for i in mod_list_raw:
         if i[-3:-1] == '.py':
