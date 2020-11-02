@@ -5,7 +5,7 @@ from C2_Bot import __version__, discon, mod_list
 
 for sublibrary in mod_list:
     try:
-        exec("from mods.{s} import *".format(s=sublibrary))
+        exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
     except Exception as e:
         print(e)
 
