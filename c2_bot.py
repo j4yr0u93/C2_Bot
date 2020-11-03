@@ -4,11 +4,12 @@ import discord
 from C2_Bot import __version__, discon, mod_list
 
 for sublibrary in mod_list:
-    functions_list = []
+    functions_list = {}
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
-        exec("from C2_Bot.mods.{s} import allowed_functions, secure_functions".format(s=sublibrary))
-        functions_list.append(allowed_functions)
+        exec("from C2_Bot.mods.{s} import allowed, secure".format(s=sublibrary))
+        allowed_functions.append(allowed)
+        secure_functions.append(secure)
     except Exception as e:
         print(e)
 
@@ -21,7 +22,6 @@ client = discord.Client()
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(allowed_functions)
-    print(discon)
 
 
 

@@ -1,9 +1,9 @@
 import asyncio
 import discord
 
-allowed_functions = {'test' : test, 'echo' : echo}
+allowed = {'test' : test, 'echo' : echo}
 
-secure_functions = {'monke' : monke}
+secure = {'monke' : monke}
 
 async def test(message):
     await message.channel.send('Nice test!')
