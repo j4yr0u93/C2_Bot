@@ -4,7 +4,8 @@ import discord
 from C2_Bot import __version__, discon, mod_list
 
 for sublibrary in mod_list:
-    functions_list = {}
+    allowed_functions = {}
+    secure_functions = {}
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
         exec("from C2_Bot.mods.{s} import allowed, secure".format(s=sublibrary))
