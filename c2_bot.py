@@ -50,7 +50,7 @@ async def on_message(message):
                 await allowed_functions[command](message = message)
             except Exception as e:
                 print(e)
-        elif message.author.id() == int(discon['id']['OWNER']):
+        elif message.author.id == int(discon['id']['OWNER']):
             try:
                 await secure_functions[command](message = message)
             except Exception as e:
