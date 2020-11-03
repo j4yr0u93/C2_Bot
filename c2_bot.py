@@ -49,4 +49,4 @@ async def on_message(message):
             except Exception as e:
                 print(e)
 
-client.run(discon['secure']['TOKEN']
+client.run(discon['secure']['TOKEN'])
