@@ -22,6 +22,7 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(allowed_functions)
     print(discon)
+    test(args = [], message = 773002421769076748)
 
 
 
