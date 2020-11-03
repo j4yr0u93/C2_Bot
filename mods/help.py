@@ -13,5 +13,5 @@ async def monke(message):
     await message.channel.send('dev who made bot is monke')
 
 
-allowed = {'test' : test, 'echo' : echo, 'author_id' : author_id}
+allowed = {'test' : test, 'echo' : echo}
 secure = {'monke' : monke}
