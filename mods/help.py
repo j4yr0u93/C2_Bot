@@ -5,7 +5,9 @@ async def test(message):
     await message.channel.send('Nice test!')
 
 async def echo(message):
-    await message.channel.send(str())
+    echo_raw = message.content.split()
+    echo_content = " ".join(echo_raw[1:])
+    await message.channel.send()
 
 async def monke(message):
     await message.channel.send('dev who made bot is monke')
