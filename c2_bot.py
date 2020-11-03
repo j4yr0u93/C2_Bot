@@ -7,7 +7,7 @@ for sublibrary in mod_list:
     functions_list = []
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
-        exec("from C2_Bot.mods.{s} import allowed_functions".format(s=sublibrary))
+        exec("from C2_Bot.mods.{s} import allowed_functions, secure_functions".format(s=sublibrary))
         functions_list.append(allowed_functions)
     except Exception as e:
         print(e)
@@ -22,7 +22,6 @@ async def on_ready():
     print('We have logged in as {0.user}'.format(client))
     print(allowed_functions)
     print(discon)
-    test(args = [], message = 773002421769076748)
 
 
 
@@ -44,9 +43,14 @@ async def on_message(message):
         command_string = message.content
         command_parse = command_string.split()
         command = command_parse[0][len(discon['options']['PREFIX']):]
-        if (command in allowed_functions) or (message.author.id == discon['options']['OWNER']):
+        if command in allowed_functions:
             try:
-                exec("{f}(args = {args}, message = {m})".format(f=command, args=command_parse[1:], m=message))
+                await allowed_functions[command](message = message)
+            except Exception as e:
+                print(e)
+        elif message.author.id == discon['options']['OWNER']:
+            try:
+                await secure_functions[command](message = message)
             except Exception as e:
                 print(e)
 
