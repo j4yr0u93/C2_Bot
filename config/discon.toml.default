@@ -1,4 +1,10 @@
 #discord config stored here
-title = "c2 discord configuration"
+title = "c2 configuration"
 [secure]
 TOKEN = "token"
+[id]
+SERVER = "server id"
+WELCOME = "welcome channel id"
+OWNER = "server owner id"
+[options]
+PREFIX = "$"
