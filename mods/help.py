@@ -1,10 +1,6 @@
 import asyncio
 import discord
 
-allowed = {'test' : test, 'echo' : echo}
-
-secure = {'monke' : monke}
-
 async def test(message):
     await message.channel.send('Nice test!')
 
@@ -13,3 +9,7 @@ async def echo(message):
 
 async def monke(message):
     await message.channel.send('dev who made bot is monke')
+
+
+allowed = {'test' : test, 'echo' : echo}
+secure = {'monke' : monke}
