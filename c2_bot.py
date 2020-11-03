@@ -39,15 +39,14 @@ async def on_message(message):
     if message.author.bot:
         return
     #run a command if prexix matches and first 'word' after prefixes is in 'commands'
-elif message.content.startswith(discon['options']['PREFIX']) and (message.content.split("")[0][len(discon['options']['PREFIX']):] in allowed_functions):
-        try:
-            exec("{f}(args = {args}, message = {m})".format(f=message.content.split("")[0][len(discon['options']['PREFIX']):], args=message.content.split[1:], m=message))
-        except Exception as e:
+    elif message.content.startswith(discon['options']['PREFIX']):
+        command_string = message.content
+        command_parse = command_string.split()
+        command = command_parse[0][len(discon['options']['PREFIX']):]
+        if (command in allowed_functions) or (message.author.id == discon['options']['OWNER']):
+            try:
+                exec("{f}(args = {args}, message = {m})".format(f=command, args=command_parse[1:], m=message))
+            except Exception as e:
             print(e)
-    elif message.content.startswith(discon['options']['PREFIX']) and (message.author.id == discon['options']['OWNER']):
-        try:
-            exec("{f}(args = {args}, message = {m})".format(f=message.content.split("")[0][len(discon['options']['PREFIX']):], args=message.content.split[1:], m=message))
-        except:
-            await message.channel.send('bruh')
 
-client.run(discon['secure']['TOKEN'])
+client.run(discon['secure']['TOKEN']
