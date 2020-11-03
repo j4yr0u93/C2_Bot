@@ -47,6 +47,6 @@ async def on_message(message):
             try:
                 exec("{f}(args = {args}, message = {m})".format(f=command, args=command_parse[1:], m=message))
             except Exception as e:
-            print(e)
+                print(e)
 
 client.run(discon['secure']['TOKEN']
