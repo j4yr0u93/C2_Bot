@@ -39,7 +39,7 @@ async def on_message(message):
     if message.author.bot:
         return
     #run a command if prexix matches and first 'word' after prefixes is in 'commands'
-elif message.content.startswith(discon['options']['PREFIX']) and (message.content.split()[0][len(discon['options']['PREFIX']):] in allowed_functions):
+    elif message.content.startswith(discon['options']['PREFIX']) and (message.content.split()[0][len(discon['options']['PREFIX']):] in allowed_functions):
         try:
             exec("{f}(args = {args}, message = {m})".format(f=message.content.split()[0][len(discon['options']['PREFIX']):], args=message.content.split[1:], m=message))
         except Exception as e:
