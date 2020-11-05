@@ -7,9 +7,6 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import os.path
 import qtoml as toml
 
-#open config with right path
-SPOTIFY_CONFIG_PATH = os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')
-
 def load_config(path):
     with open(path, 'r') as f:
         config = toml.load(f)
@@ -21,14 +18,14 @@ def set_spot_env(config):
     os.environ['SPOTIPY_REDIRECT_URI'] = config['spotify']['SPOTIPY_REDIRECT_URI']
     return
 
-#load auth
-set_spot_env(load_config(SPOTIFY_CONFIG_PATH))
-
-#set auth
-spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
+def get_spotify_token():
+    set_spot_env(load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')))
+    spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
+    return spotify_client
 
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
+    spotify_client = get_spotify_token()
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
