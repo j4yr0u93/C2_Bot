@@ -19,7 +19,7 @@ def get_spotify_client():
 
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
-    get_spotify_client()
+    spotify_client = get_spotify_client()
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
