@@ -9,7 +9,7 @@ for sublibrary in mod_list:
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
         exec("allowed_functions.update({s}_allowed)".format(s=sublibrary))
-        exec("allowed_functions.update({s}_secure)".format(s=sublibrary))
+        exec("secure_functions.update({s}_secure)".format(s=sublibrary))
 #        allowed_functions.update(allowed)
 #        secure_functions.update(secure)
     except Exception as e:
@@ -23,6 +23,7 @@ client = discord.Client()
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
+    print(mod_list)
     print(allowed_functions)
     print(secure_functions)
 
