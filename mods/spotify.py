@@ -36,5 +36,5 @@ async def spotify_search(message):
     await message.channel.send(result_url)
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
-allowed = {'spotify_search' : spotify_search}
-secure = {}
+spotify_allowed = {'spotify_search' : spotify_search}
+spotify_secure = {}

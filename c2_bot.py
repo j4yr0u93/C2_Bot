@@ -8,8 +8,10 @@ for sublibrary in mod_list:
     secure_functions = {}
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
-        allowed_functions.update(allowed)
-        secure_functions.update(secure)
+        exec("allowed_functions.update({s}_allowed)".format(s=sublibrary))
+        exec("allowed_functions.update({s}_secure)".format(s=sublibrary))
+#        allowed_functions.update(allowed)
+#        secure_functions.update(secure)
     except Exception as e:
         print(e)
 

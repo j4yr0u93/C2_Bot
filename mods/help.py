@@ -16,5 +16,5 @@ async def monke(message):
     await message.channel.send('dev who made bot is monke')
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
-allowed = {'test' : test, 'echo' : echo}
-secure = {'monke' : monke}
+help_allowed = {'test' : test, 'echo' : echo}
+help_secure = {'monke' : monke}
