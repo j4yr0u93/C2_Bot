@@ -22,7 +22,7 @@ def set_spot_env(config):
     return
 
 #load auth
-set_spot_env(load_config(CONFIG_PATH))
+set_spot_env(load_config(SPOTIFY_CONFIG_PATH))
 
 #set auth
 spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
