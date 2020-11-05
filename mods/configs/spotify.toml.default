@@ -1,0 +1,6 @@
+#spotify API key and info stored here
+title = "spotify module config"
+[spotify]
+SPOTIPY_CLIENT_ID = "id here"
+SPOTIPY_CLIENT_SECRET = "secret key here"
+SPOTIPY_REDIRECT_URI = ""
