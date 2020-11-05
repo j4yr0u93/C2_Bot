@@ -16,9 +16,9 @@ def load_config(path):
         return config
 
 def set_spot_env(config):
-    os.environ['SPOTIPY_CLIENT_ID'] = spotify['spotify']['SPOTIPY_CLIENT_ID']
-    os.environ['SPOTIPY_CLIENT_SECRET'] = spotify['spotify']['SPOTIPY_CLIENT_SECRET']
-    os.environ['SPOTIPY_REDIRECT_URI'] = spotify['spotify']['SPOTIPY_REDIRECT_URI']
+    os.environ['SPOTIPY_CLIENT_ID'] = config['spotify']['SPOTIPY_CLIENT_ID']
+    os.environ['SPOTIPY_CLIENT_SECRET'] = config['spotify']['SPOTIPY_CLIENT_SECRET']
+    os.environ['SPOTIPY_REDIRECT_URI'] = config['spotify']['SPOTIPY_REDIRECT_URI']
     return
 
 #load auth
