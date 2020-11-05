@@ -30,7 +30,7 @@ spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
     search_raw = message.content.split()
-    search_query = " ".join(echo_raw[1:])
+    search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
     result_url = search_results.get('external_urls').get('spotify')
     await message.channel.send(result_url)
