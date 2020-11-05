@@ -1,6 +1,7 @@
 import asyncio
 import discord
 
+from C2_Bot.mods import *
 from C2_Bot import __version__, discon, mod_list
 
 allowed_functions = {}
