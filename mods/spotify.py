@@ -12,20 +12,11 @@ def load_config(path):
         config = toml.load(f)
         return config
 
-def set_spot_env(config):
-    os.environ['SPOTIPY_CLIENT_ID'] = config['spotify']['SPOTIPY_CLIENT_ID']
-    os.environ['SPOTIPY_CLIENT_SECRET'] = config['spotify']['SPOTIPY_CLIENT_SECRET']
-    os.environ['SPOTIPY_REDIRECT_URI'] = config['spotify']['SPOTIPY_REDIRECT_URI']
-    return
-
-def get_spotify_token():
-    set_spot_env(load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')))
-    spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials())
-    return spotify_client
+config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
+spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
 
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
-    spotify_client = get_spotify_token()
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
