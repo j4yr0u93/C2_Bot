@@ -12,11 +12,14 @@ def load_config(path):
         config = toml.load(f)
         return config
 
-config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
-spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
+def get_spotify_client():
+    config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
+    spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
+    return spotify_client
 
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
+    get_spotify_client()
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
