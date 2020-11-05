@@ -32,7 +32,7 @@ async def spotify_search(message):
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query)
-    result_url = search_results.get('external_urls').get('spotify')
+    result_url = search_results.get('external_urls')
     await message.channel.send(result_url)
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
