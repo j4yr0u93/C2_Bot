@@ -13,7 +13,7 @@ def load_config(path):
         return config
 
 config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
-spotify_client = spotipy.Spotify(auth_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
+spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
 
 async def spotify_search(message):
     '''Passes literal input to spotify.search() function'''
