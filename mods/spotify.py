@@ -3,7 +3,7 @@ import discord
 import spotipy
 from spotipy.oauth2 import SpotifyClientCredentials
 
-#init
+#config loading libs
 import os.path
 import qtoml as toml
 
