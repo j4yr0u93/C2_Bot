@@ -20,9 +20,11 @@ def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.t
 async def spotify_search(message, spotify_client = get_spotify_client()):
     '''Passes literal input to spotify.search() function'''
     search_raw = message.content.split()
-    search_query_string = " ".join(search_raw[1:])
-    search_query_raw = search_query_string.encode()
-    search_results = spotify_client.search(search_query_raw)
+    search_query = " ".join(search_raw[1:])
+    try:
+        search_results = exec("spotify_client.search({a})".format(a=search_query))
+    except Exception as e:
+        print(e)
 #    result_url = search_results.get('external_urls')
     await message.channel.send(search_results)
 
