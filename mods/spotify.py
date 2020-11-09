@@ -27,9 +27,8 @@ async def spotify_search(message):
     await message.channel.send(search_results)
 
 def spotify_test(message):
+    config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
     print(config['spotify']['SPOTIPY_CLIENT_ID'])
-    print(config['spotify']['SPOTIPY_CLIENT_SECRET'])
-    print(message)
     return
 
 
