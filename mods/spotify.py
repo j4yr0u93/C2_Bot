@@ -26,9 +26,10 @@ async def spotify_search(message):
 #    result_url = search_results.get('external_urls')
     await message.channel.send(search_results)
 
-def spotify_test():
+def spotify_test(message):
     print(config['spotify']['SPOTIPY_CLIENT_ID'])
     print(config['spotify']['SPOTIPY_CLIENT_SECRET'])
+    print(message)
     return
 
 
