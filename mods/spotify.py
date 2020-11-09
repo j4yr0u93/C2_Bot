@@ -23,14 +23,6 @@ async def spotify_search(message):
 #    result_url = search_results.get('external_urls')
     await message.channel.send(search_results)
 
-async def spotify_test(message):
-    search_input = message.split()[1:]
-    spotify_client = get_spotify_client()
-    results = spotify_client.search(search_input)
-
-    await message.channel.send(result)
-
-
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
 secure = {'spotify_test' : spotify_test}
