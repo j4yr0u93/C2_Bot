@@ -7,11 +7,15 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import os.path
 import qtoml as toml
 
+print('test')
 
 def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')):
     with open(path, 'r') as f:
         config = toml.load(f)
-    spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
+    os.environ['SPOTIPY_CLIENT_ID'] = config['spotify']['SPOTIPY_CLIENT_ID']
+    os.environ['SPOTIPY_CLIENT_SECRET'] = config['spotify']['SPOTIPY_CLIENT_SECRET']
+    os.environ['SPOTIPY_REDIRECT_URI'] = config['spotify']['SPOTIPY_REDIRECT_URI']
+    spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
     return spotify_client
 
 async def spotify_search(message):
