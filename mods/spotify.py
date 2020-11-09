@@ -7,13 +7,10 @@ from spotipy.oauth2 import SpotifyClientCredentials
 import os.path
 import qtoml as toml
 
-def load_config(path):
-    with open(path, 'r') as f:
-        config = toml.load(f)
-        return config
 
-def get_spotify_client():
-    config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
+def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')):
+    with open(path, 'r') as f:
+    config = toml.load(f)
     spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
     return spotify_client
 
@@ -27,10 +24,11 @@ async def spotify_search(message):
     await message.channel.send(search_results)
 
 async def spotify_test(message):
-    config = load_config(os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml'))
-    print(config['spotify']['SPOTIPY_CLIENT_ID'])
+    search_input = message.split()[1:]
+    spotify_client = get_spotify_client()
+    results = spotify_client.search(search_input)
 
-    await message.channel.send('test')
+    await message.channel.send(result)
 
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
