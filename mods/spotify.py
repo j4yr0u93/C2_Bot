@@ -26,6 +26,12 @@ async def spotify_search(message):
 #    result_url = search_results.get('external_urls')
     await message.channel.send(search_results)
 
+def spotify_test():
+    print(config['spotify']['SPOTIPY_CLIENT_ID'])
+    print(config['spotify']['SPOTIPY_CLIENT_SECRET'])
+    return
+
+
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
-secure = {}
+secure = {'spotify_test' : spotify_test}
