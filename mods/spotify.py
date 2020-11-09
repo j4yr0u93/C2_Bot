@@ -10,7 +10,7 @@ import qtoml as toml
 
 def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.toml')):
     with open(path, 'r') as f:
-    config = toml.load(f)
+        config = toml.load(f)
     spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials(client_id = config['spotify']['SPOTIPY_CLIENT_ID'], client_secret = config['spotify']['SPOTIPY_CLIENT_SECRET']))
     return spotify_client
 
