@@ -17,9 +17,7 @@ def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.t
     spotify_client = spotipy.Spotify(client_credentials_manager=SpotifyClientCredentials())
     return spotify_client
 
-spotify_client = get_spotify_client()
-
-async def spotify_search(message):
+async def spotify_search(message, spotify_client = get_spotify_client()):
     '''Passes literal input to spotify.search() function'''
     search_raw = message.content.split()
     search_query = " ".join(search_raw[1:])
@@ -30,7 +28,3 @@ async def spotify_search(message):
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
 secure = {}
-
-print(os.environ['SPOTIPY_CLIENT_ID'])
-
-print(spotify_client)
