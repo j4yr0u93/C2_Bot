@@ -22,8 +22,7 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     search_raw = message.content.split()
     search_query= " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query, limit=1)
-    search_result_url = search_results['items']['external_urls']['spotify']
-    print(search_result_url)
+    search_result_url = search_results['tracks']['items'][0]['external_urls']['spotify']
 #    result_url = search_results.get('external_urls')
     await message.channel.send(search_result_url)
 
