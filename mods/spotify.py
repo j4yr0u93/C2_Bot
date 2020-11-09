@@ -18,7 +18,7 @@ def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.t
     return spotify_client
 
 async def spotify_search(message, spotify_client = get_spotify_client()):
-    '''Passes literal input to spotify.search() function'''
+    '''Spotify searching function that returns the first spotify url for a search'''
     search_raw = message.content.split()
     search_query= " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query, limit=1)
