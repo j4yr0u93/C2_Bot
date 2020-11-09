@@ -25,4 +25,4 @@ async def spotify_search(message):
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
-secure = {'spotify_test' : spotify_test}
+secure = {}
