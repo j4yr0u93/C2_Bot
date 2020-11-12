@@ -6,4 +6,4 @@ py 3 bot for Computer.Coffee discord
 reqs:
 - asyncio
 - discord
-- spotipy (optional)
+- spotipy (optional module)
