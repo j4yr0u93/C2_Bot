@@ -22,7 +22,7 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     search_raw = message.content.split()
     if search_raw[1] in ['track', 'album', 'artist', 'playlist']:
         search_type = search_raw[1]
-        if search_raw[2] in str(range(1, 10)):
+        if search_raw[2] in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
             search_limit = int(search_raw[2])
             search_query= " ".join(search_raw[3:])
         else:
@@ -30,7 +30,7 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
             search_query= " ".join(search_raw[2:])
     else:
         search_type = 'track'
-        if search_raw[1] in str(range(1, 10)):
+        if search_raw[1] in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
             search_limit = int(search_raw[1])
             search_query= " ".join(search_raw[2:])
         else:
