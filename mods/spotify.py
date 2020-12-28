@@ -20,11 +20,13 @@ def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.t
 async def spotify_search(message, spotify_client = get_spotify_client()):
     '''Spotify searching function that returns the first spotify url for a search'''
     search_raw = message.content.split()
-    search_query= " ".join(search_raw[1:])
-    search_results = spotify_client.search(search_query, limit=5)
-    search_result_url = search_results['tracks']['items'][0]['external_urls']['spotify']
-#    result_url = search_results.get('external_urls')
-    await message.channel.send(search_result_url)
+    search_type = search_raw[1]
+    search_query= " ".join(search_raw[2:])
+    search_results = spotify_client.search(search_query, type = search_type, limit=5)
+    for i in range(0, 5):
+        search_result_url = search_results['tracks']['items'][i]['external_urls']['spotify']
+        await message.channel.send(search_result_url)
+    await message.channel.send('These are the top 5 results for your {t} search'.format(t=search_type))
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
