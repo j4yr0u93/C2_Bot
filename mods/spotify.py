@@ -22,17 +22,26 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     search_raw = message.content.split()
     if search_raw[1] in ['track', 'album', 'artist', 'playlist']:
         search_type = search_raw[1]
-        search_query= " ".join(search_raw[2:])
+        if search_raw[2] in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
+            search_limit = int(search_raw[2])
+            search_query= " ".join(search_raw[3:])
+        else:
+            search_limit = 5
+            search_query= " ".join(search_raw[2:])
     else:
         search_type = 'track'
-        search_query= " ".join(search_raw[1:])
-    search_results = spotify_client.search(search_query, type = search_type, limit=5)
+        if search_raw[1] in ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']:
+            search_limit = int(search_raw[1])
+            search_query= " ".join(search_raw[2:])
+        else:
+            search_limit = 5
+            search_query= " ".join(search_raw[1:])
+    search_results = spotify_client.search(search_query, type = search_type, limit=search_limit)
     search_result_urls = []
-    for i in range(0, 5):
+    for i in range(0, search_limit):
         search_result_urls.append(search_results['{st}s'.format(st=search_type)]['items'][i]['external_urls']['spotify'])
     await message.channel.send('{0}\n{1}\n{2}\n{3}\n{4}\nThese are the top 5 results for your {t} search: "{c}"'.format(search_result_urls[0], search_result_urls[1], search_result_urls[2], search_result_urls[3], search_result_urls[4], t=search_type, c=search_query))
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
 secure = {}
-help = {'spotify_search' : ''}

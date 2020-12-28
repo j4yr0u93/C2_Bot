@@ -23,4 +23,3 @@ async def monke(message):
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'test' : test, 'echo' : echo}
 secure = {'monke' : monke}
-help = {'test' : 'sends a predetermined message to test function availability', 'echo', 'repeats the users message'}
