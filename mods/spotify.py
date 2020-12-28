@@ -23,10 +23,10 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     search_type = search_raw[1]
     search_query= " ".join(search_raw[2:])
     search_results = spotify_client.search(search_query, type = search_type, limit=5)
+    search_result_urls = []
     for i in range(0, 5):
-        search_result_url = search_results['tracks']['items'][i]['external_urls']['spotify']
-        await message.channel.send(search_result_url)
-    await message.channel.send('These are the top 5 results for your {t} search'.format(t=search_type))
+        search_result_urls.append(search_results['tracks']['items'][i]['external_urls']['spotify'])
+    await message.channel.send('{0}\n{1}\n{2}\n{3}\n{4}\nThese are the top 5 results for your {t} search'.format(search_result_urls[0], search_result_urls[1], search_result_urls[2], search_result_urls[3], search_result_urls[4], t=search_type))
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
