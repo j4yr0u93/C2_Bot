@@ -42,7 +42,7 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
         search_result_urls.append(search_results['{st}s'.format(st=search_type)]['items'][i]['external_urls']['spotify'])
         urls = search_result_urls.join('\n')
     if search_limit > 1:
-        await message.channel.send('{urls}\nThese are the top {sl} results for your {t} search: "{c}"'.format(urls=urls sl=search_limit, t=search_type, c=search_query))
+        await message.channel.send('{urls}\nThese are the top {sl} results for your {t} search: "{c}"'.format(urls=urls, sl=search_limit, t=search_type, c=search_query))
     else:
         await message.channel.send(search_result_urls[0])
 
