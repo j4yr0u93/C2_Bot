@@ -6,11 +6,13 @@ from C2_Bot import __version__, discon, mod_list
 
 allowed_functions = {}
 secure_functions = {}
+help_instructions = {}
 for sublibrary in mod_list:
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
         allowed_functions.update(allowed)
         secure_functions.update(secure)
+        help_instructions.update(help)
     except Exception as e:
         print(e)
 
