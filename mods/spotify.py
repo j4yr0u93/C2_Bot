@@ -18,7 +18,7 @@ def get_spotify_client(path=os.path.join('C2_Bot', 'mods', 'configs', 'spotify.t
     return spotify_client
 
 async def spotify_search(message, spotify_client = get_spotify_client()):
-    '''Spotify searching function that returns the first 5 spotify urls for a search type'''
+    '''Spotify searching function that returns the first n spotify urls for a search type'''
     search_raw = message.content.split()
     if search_raw[1] in ['track', 'album', 'artist', 'playlist']:
         search_type = search_raw[1]
@@ -37,14 +37,12 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
             search_limit = 5
             search_query= " ".join(search_raw[1:])
     search_results = spotify_client.search(search_query, type = search_type, limit=search_limit)
-    search_result_urls = []
-    for i in range(0, search_limit):
-        search_result_urls.append(search_results['{st}s'.format(st=search_type)]['items'][i]['external_urls']['spotify'])
-    urls = "\n".join(search_result_urls)
+    results = search_results[f'{search_type}s']['items']
+    urls = "\n".join(results[i]['external_urls']['spotify'] for i in range(search_limit))
     if search_limit > 1:
         await message.channel.send('{urls}\nThese are the top {sl} results for your {t} search: "{c}"'.format(urls=urls, sl=search_limit, t=search_type, c=search_query))
     else:
-        await message.channel.send(search_result_urls[0])
+        await message.channel.send(urls)
 
 #async def song_rec(message, spotify_client = get_spotify_client()):
 #    '''Spotify song reccomendation function that takes a song URL and returns recommendations'''
