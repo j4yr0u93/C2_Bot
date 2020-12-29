@@ -44,6 +44,13 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     else:
         await message.channel.send(urls)
 
+async def related(message, spotify_client = get_spotify_client()):
+    search_raw = message.content.split()
+    artist_data = spotify_client.search(' '.join(search_raw[1:]), type = 'artist', limit=1)
+    artist_url = artist_data['artists']['items'][1]['external_urls']['spotify']
+    related_data = spotify_client.artist_related_artists(artist_url)
+    await print(related_data)
+
 #async def song_rec(message, spotify_client = get_spotify_client()):
 #    '''Spotify song reccomendation function that takes a song URL and returns recommendations'''
 #    search_raw = message.content.split()
@@ -52,5 +59,5 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
 #    await print(track_recs)
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
-allowed = {'spotify_search' : spotify_search}
+allowed = {'spotify_search' : spotify_search, 'related' : related}
 secure = {}
