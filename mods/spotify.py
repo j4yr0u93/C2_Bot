@@ -46,6 +46,11 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
     else:
         await message.channel.send(search_result_urls[0])
 
+async def song_rec(message, spotify_client = get_spotify_client()):
+    '''Spotify song reccomendation function that takes a song URL and returns recommendations'''
+    search_raw = message.content.split()
+    track_recs = recommendations(seed_tracks=search_raw[1])
+    await print(track_recs)
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'spotify_search' : spotify_search}
-secure = {}
+secure = {'song_rec' : song_rec}
