@@ -47,7 +47,7 @@ async def spotify_search(message, spotify_client = get_spotify_client()):
 async def related(message, spotify_client = get_spotify_client()):
     search_raw = message.content.split()
     artist_data = spotify_client.search(' '.join(search_raw[1:]), type = 'artist', limit=1)
-    artist_url = artist_data['artists']['items'][1]['external_urls']['spotify']
+    artist_url = artist_data['artists']['items'][0]['external_urls']['spotify']
     related_data = spotify_client.artist_related_artists(artist_url)
     await print(related_data)
 
