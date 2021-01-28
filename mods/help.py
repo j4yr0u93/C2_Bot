@@ -16,10 +16,10 @@ async def echo(message):
     echo_content = " ".join(echo_raw[1:])
     await message.channel.send(echo_content)
 
-async def monke(message):
+async def secure_test(message):
     '''This function is to confirm that only permitted users can run secure functions'''
-    await message.channel.send('dev who made bot is monke')
+    await message.channel.send('Successful secure test')
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 allowed = {'test' : test, 'echo' : echo}
-secure = {'monke' : monke}
+secure = {'secure_test' : secure_test}
