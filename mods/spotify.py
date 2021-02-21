@@ -59,5 +59,4 @@ async def related(message, spotify_client = get_spotify_client()):
 #    await print(track_recs)
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
-allowed = {'spotify_search' : spotify_search, 'related' : related}
-secure = {}
+client_fun = {'spotify_search' : spotify_search, 'related' : related}

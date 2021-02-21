@@ -2,9 +2,5 @@
 title = "c2 configuration"
 [secure]
 TOKEN = "token"
-[id]
-SERVER = "server id"
-WELCOME = "welcome channel id"
-OWNER = "server owner id"
 [options]
 PREFIX = "$"

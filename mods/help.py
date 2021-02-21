@@ -1,10 +1,6 @@
 import asyncio
 import discord
 
-#async def help(message):
-#    if message.content()[-4:] == 'help':
-#        af = allowed_functions.keys().join()
-#        'Available functions are: {af}'.format(af = af)
 
 async def test(message):
     '''This function outputs a string to confirm that seamless module integration is functioning'''
@@ -21,5 +17,4 @@ async def secure_test(message):
     await message.channel.send('Successful secure test')
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
-allowed = {'test' : test, 'echo' : echo}
-secure = {'secure_test' : secure_test}
+client_fun = {'test' : test, 'echo' : echo, 'secure_test' : secure_test}
