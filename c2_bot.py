@@ -12,12 +12,27 @@ from C2_Bot import __version__, discon, mod_list
 
 
 client_functions = {}
+main_tbl_cols = ()
 for sublibrary in mod_list:
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
         client_functions.update(client_fun)
+        main_tbl_cols.extend(main_tbl_col)
     except Exception as e:
         print(e)
+
+#create function permission table if it does not exist
+c.execute("CREATE TABLE IF NOT EXISTS funperm (role_id TEXT PRIMARY KEY, guild_id TEXT, fun TEXT)")
+conn.commit()
+
+#create main table if it does not exist
+c.execute("CREATE TABLE IF NOT EXISTS maintbl (user_id TEXT PRIMARY KEY, guild_id TEXT)")
+conn.commit()
+
+#check main table and add missing columns
+cols = c.execute("SELECT * FROM maintbl")
+names = list(map(lambda x: x[0], cols.description))
+print(names)
 
 def main():
     return
@@ -53,6 +68,6 @@ async def on_message(message):
                 except Exception as e:
                     print(e)
             else:
-                await message.channel.send('You do not have permission to use this function!')
+                await message.channel.send('Insufficient Function Permissions')
 
 client.run(discon['secure']['TOKEN'])
