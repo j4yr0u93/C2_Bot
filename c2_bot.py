@@ -35,7 +35,7 @@ names = list(map(lambda x: x[0], cols.description))
 
 for key in main_tbl_cols:
     if key not in names:
-        c.execute("ALTER TABLE maintbl ADD COLUMN ? ?", (key, main_tbl_cols.get(key)))
+        c.execute("ALTER TABLE maintbl ADD COLUMN {k} {v}".format(k=key, v=main_tbl_cols.get(key)))
         conn.commit()
 
 
