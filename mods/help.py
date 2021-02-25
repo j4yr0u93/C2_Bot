@@ -1,7 +1,6 @@
 import asyncio
 import discord
 
-
 async def test(message):
     '''This function outputs a string to confirm that seamless module integration is functioning'''
     await message.channel.send('Nice test!')

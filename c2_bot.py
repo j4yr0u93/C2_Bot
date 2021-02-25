@@ -12,12 +12,12 @@ from C2_Bot import __version__, discon, mod_list
 
 
 client_functions = {}
-main_tbl_cols = ()
+main_tbl_cols = {}
 for sublibrary in mod_list:
     try:
         exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
         client_functions.update(client_fun)
-        main_tbl_cols.extend(main_tbl_col)
+        main_tbl_cols.update(main_tbl_col)
     except Exception as e:
         print(e)
 
@@ -32,7 +32,13 @@ conn.commit()
 #check main table and add missing columns
 cols = c.execute("SELECT * FROM maintbl")
 names = list(map(lambda x: x[0], cols.description))
-print(names)
+
+for key in main_tbl_cols:
+    if key not in names:
+        c.execute("ALTER TABLE maintbl ADD COLUMN ? ?", (key, main_tbl_cols.get(key)))
+        conn.commit()
+
+
 
 def main():
     return
@@ -40,7 +46,6 @@ def main():
 @client.event
 async def on_ready():
     print('We have logged in as {0.user}'.format(client))
-    print(client_functions)
 
 
 

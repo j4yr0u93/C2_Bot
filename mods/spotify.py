@@ -60,3 +60,5 @@ async def related(message, spotify_client = get_spotify_client()):
 
 #these dictionaries indicate which user level can run which functions, everyone or the designated secure roles
 client_fun = {'spotify_search' : spotify_search, 'related' : related}
+
+main_tbl_col = {'favorite_track' : 'TEXT'}
