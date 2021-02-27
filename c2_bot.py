@@ -88,7 +88,7 @@ async def mod_perm(message):
     valid_role = False
     valid_fun = False
     c_new = []
-    if len(mod_perm_raw) >= 3
+    if len(mod_perm_raw) >= 3:
         guild_id, role_id, command = message.guild.id, mod_perm_raw[1], mod_perm_raw[2]
         if (target_role =: discord.utils.find(lambda r: r.name == role_id, channel.guild.roles)) != None:
             role_id, valid_role = target_role.id, True
