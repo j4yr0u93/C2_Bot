@@ -11,7 +11,7 @@ from C2_Bot import __version__, discon, mod_list
 
 
 
-client_functions = {}
+client_functions = {'mod_perm' : mod_perm}
 main_tbl_cols = {}
 for sublibrary in mod_list:
     try:
@@ -61,7 +61,7 @@ async def on_message(message):
     #ignore bots
     if message.author.bot:
         return
-    #run a command if prexix matches and first 'word' after prefixes is in 'commands'
+    #run a command if prexix matches and 'command' after prefix is in client_functions
     elif message.content.startswith(discon['options']['PREFIX']):
         command_string = message.content
         command_parse = command_string.split()
@@ -72,7 +72,50 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
+            elif c.execute('''SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'''.format(r=message.author.id, g=message.guild.id, f=command)):
+                try:
+                    await client_functions[command](message = message)
+                except Exception as e:
+                    print(e)
             else:
                 await message.channel.send('Insufficient Function Permissions')
+
+
+
+async def mod_perm(message):
+    '''explain function here'''
+    mod_perm_raw = message.content.split()
+    valid_role = False
+    valid_fun = False
+    c_new = []
+    if len(mod_perm_raw) >= 3
+        guild_id, role_id, command = message.guild.id, mod_perm_raw[1], mod_perm_raw[2]
+        if (target_role =: discord.utils.find(lambda r: r.name == role_id, channel.guild.roles)) != None:
+            role_id, valid_role = target_role.id, True
+        elif (target_role =: discord.utils.find(lambda r: r.id == role_id, channel.guild.roles)) != None:
+            valid_role = True
+        else:
+            await message.channel.send('Invalid Role Input')
+        for c in command:
+            if c in client_functions:
+                c_new.append(c)
+                valid_fun = True
+        command = c_new
+        if len(command) == 0:
+            await message.channel.send('Invalid Function Input')
+        if valid_role and valid_fun:
+            for c in command:
+                if c.execute('''SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'''.format(r=role_id, g=message.guild.id, f=c)):
+                    c.execute('''DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'''.format(r=role_id, g=message.guild.id, f=c))
+                    conn.commit()
+                else:
+                    c.execute('''INSERT INTO funperm VALUES (role_id={r}, guild_id={g}, fun={f})'''.format(r=role_id, g=message.guild.id, f=c))
+                    conn.commit()
+            await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
+    else:
+        await message.channel.send('Insufficient mod_perm Parameters')
+
+
+
 
 client.run(discon['secure']['TOKEN'])
