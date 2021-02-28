@@ -18,6 +18,9 @@ from C2_Bot import __version__, discon, mod_list
 #        await member.guild.system_channel.send(f'{member.mention}')
 
 
+def main():
+    return
+
 @client.event
 async def on_message(message):
     #ignore bots
@@ -105,10 +108,6 @@ for key in main_tbl_cols:
         c.execute("ALTER TABLE maintbl ADD COLUMN {k} {v}".format(k=key, v=main_tbl_cols.get(key)))
         conn.commit()
 
-
-
-def main():
-    return
 
 @client.event
 async def on_ready():
