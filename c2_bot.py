@@ -63,7 +63,7 @@ async def on_message(message):
         command_parse = command_string.split()
         command = command_parse[0][len(discon['options']['PREFIX']):]
         if command in client_functions:
-            if (message.author.id == message.guild.owner.id) or message.author.guild_permissions.administrator:
+            if message.author.guild_permissions.administrator:
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
