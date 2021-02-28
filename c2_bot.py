@@ -54,9 +54,9 @@ async def mod_perm(message):
     c_new = []
     if len(mod_perm_raw) >= 3:
         guild_id, role_id, command = message.guild.id, mod_perm_raw[1], mod_perm_raw[2]
-        if (target_role := discord.utils.find(lambda r: r.name == role_id, channel.guild.roles)) is not None:
+        if (target_role := discord.utils.find(lambda r: r.name == role_id, message.channel.guild.roles)) is not None:
             role_id, valid_role = target_role.id, True
-        elif (target_role := discord.utils.find(lambda r: r.id == role_id, channel.guild.roles)) is not None:
+        elif (target_role := discord.utils.find(lambda r: r.id == role_id, message.channel.guild.roles)) is not None:
             valid_role = True
         else:
             await message.channel.send('Invalid Role Input')
