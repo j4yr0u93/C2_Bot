@@ -60,7 +60,7 @@ async def mod_perm(message):
             valid_role = True
         else:
             await message.channel.send('Invalid Role Input')
-        for c in len(command):
+        for c in range(len(command)):
             if command[c-1] in client_functions:
                 c_new.append(command[c])
                 valid_fun = True
