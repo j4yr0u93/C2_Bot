@@ -10,37 +10,6 @@ from C2_Bot.mods import *
 from C2_Bot import __version__, discon, mod_list
 
 
-client_functions = {}
-main_tbl_cols = {}
-for sublibrary in mod_list:
-    try:
-        exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
-        client_functions.update(client_fun)
-        main_tbl_cols.update(main_tbl_col)
-    except Exception as e:
-        print(e)
-
-#create function permission table if it does not exist
-c.execute("CREATE TABLE IF NOT EXISTS funperm (role_id TEXT PRIMARY KEY, guild_id TEXT, fun TEXT)")
-conn.commit()
-
-#create main table if it does not exist
-c.execute("CREATE TABLE IF NOT EXISTS maintbl (user_id TEXT PRIMARY KEY, guild_id TEXT)")
-conn.commit()
-
-#check main table and add missing columns
-cols = c.execute("SELECT * FROM maintbl")
-names = list(map(lambda x: x[0], cols.description))
-
-for key in main_tbl_cols:
-    if key not in names:
-        c.execute("ALTER TABLE maintbl ADD COLUMN {k} {v}".format(k=key, v=main_tbl_cols.get(key)))
-        conn.commit()
-
-
-@client.event
-async def on_ready():
-    print('We have logged in as {0.user}'.format(client))
 
 #message user welcome message when they join server
 #@client.event
@@ -78,7 +47,7 @@ async def on_message(message):
 
 
 
-'''async def mod_perm(message):
+async def mod_perm(message):
     mod_perm_raw = message.content.split()
     valid_role = False
     valid_fun = False
@@ -109,7 +78,38 @@ async def on_message(message):
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
         await message.channel.send('Insufficient mod_perm Parameters')
-'''
 
+
+client_functions = {'mod_perm' : mod_perm}
+main_tbl_cols = {}
+for sublibrary in mod_list:
+    try:
+        exec("from C2_Bot.mods.{s} import *".format(s=sublibrary))
+        client_functions.update(client_fun)
+        main_tbl_cols.update(main_tbl_col)
+    except Exception as e:
+        print(e)
+
+#create function permission table if it does not exist
+c.execute("CREATE TABLE IF NOT EXISTS funperm (role_id TEXT PRIMARY KEY, guild_id TEXT, fun TEXT)")
+conn.commit()
+
+#create main table if it does not exist
+c.execute("CREATE TABLE IF NOT EXISTS maintbl (user_id TEXT PRIMARY KEY, guild_id TEXT)")
+conn.commit()
+
+#check main table and add missing columns
+cols = c.execute("SELECT * FROM maintbl")
+names = list(map(lambda x: x[0], cols.description))
+
+for key in main_tbl_cols:
+    if key not in names:
+        c.execute("ALTER TABLE maintbl ADD COLUMN {k} {v}".format(k=key, v=main_tbl_cols.get(key)))
+        conn.commit()
+
+
+@client.event
+async def on_ready():
+    print('We have logged in as {0.user}'.format(client))
 
 client.run(discon['secure']['TOKEN'])
