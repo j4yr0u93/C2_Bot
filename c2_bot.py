@@ -37,7 +37,7 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
-            elif c.execute('''SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'''.format(r=message.author.id, g=message.guild.id, f=command)):
+            elif c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})''.format(r=message.author.id, g=message.guild.id, f=command)):
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
@@ -60,20 +60,20 @@ async def mod_perm(message):
             valid_role = True
         else:
             await message.channel.send('Invalid Role Input')
-        for c in range(len(command)):
-            if command[c-1] in client_functions:
-                c_new.append(command[c])
+        for i in range(len(command)):
+            if command[i-1] in client_functions:
+                c_new.append(command[i-1])
                 valid_fun = True
         command = c_new
         if len(command) == 0:
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
-            for c in command:
-                if c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=c)):
-                    c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=c))
+            for i in range(len(command)):
+                if c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1])):
+                    c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                     conn.commit()
                 else:
-                    c.execute('INSERT INTO funperm VALUES (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=c))
+                    c.execute('INSERT INTO funperm VALUES (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                     conn.commit()
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
