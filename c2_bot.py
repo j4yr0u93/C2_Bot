@@ -73,15 +73,17 @@ async def mod_perm(message):
                 if command[i-1] in c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall():
                     try:
                         c.execute("DELETE FROM funperm WHERE role_id='{r}' AND guild_id='{g}' AND fun='{f}'".format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        conn.commit()
                         print(c.execute("SELECT 1 FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
                         print(c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
-                        conn.commit()
                     except Exception as e:
                         print(e)
                 else:
                     try:
                         c.execute("INSERT INTO funperm (role_id, guild_id, fun) VALUES ('{r}', '{g}', '{f}')".format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
+                        print(c.execute("SELECT 1 FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
+                        print(c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
                     except Exception as e:
                         print(e)
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
