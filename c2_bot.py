@@ -72,7 +72,7 @@ async def mod_perm(message):
             for i in range(len(command)):
                 if command[i-1] in c.execute('SELECT fun FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                     try:
-                        c.execute('DELETE * FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        c.execute('DELETE 1 FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
                     except Exception as e:
                         print(e)
