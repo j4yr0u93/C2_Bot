@@ -38,7 +38,7 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
-            elif command in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=message.author.id, g=message.guild.id)).fetchall():
+            elif command in c.execute('SELECT fun FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=message.author.id, g=message.guild.id)).fetchall():
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
@@ -69,9 +69,8 @@ async def mod_perm(message):
         if len(command) == 0:
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
-            print(command[i-1])
             for i in range(len(command)):
-                if command[i-1] in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
+                if command[i-1] in c.execute('SELECT fun FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                     try:
                         c.execute('DELETE * FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
@@ -99,11 +98,11 @@ for sublibrary in mod_list:
         print(e)
 
 #create function permission table if it does not exist
-c.execute("CREATE TABLE IF NOT EXISTS funperm (role_id TEXT PRIMARY KEY, guild_id TEXT, fun TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS funperm (role_id TEXT, guild_id TEXT, fun TEXT)")
 conn.commit()
 
 #create main table if it does not exist
-c.execute("CREATE TABLE IF NOT EXISTS maintbl (user_id TEXT PRIMARY KEY, guild_id TEXT)")
+c.execute("CREATE TABLE IF NOT EXISTS maintbl (user_id TEXT, guild_id TEXT)")
 conn.commit()
 
 #check main table and add missing columns
