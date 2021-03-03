@@ -71,17 +71,13 @@ async def mod_perm(message):
         if valid_role and valid_fun:
             for i in range(len(command)):
                 if command[i-1] in c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall():
-                    try:
-                        c.execute("DELETE FROM funperm WHERE role_id='{r}' AND guild_id='{g}' AND fun='{f}'".format(r=role_id, g=message.guild.id, f=command[i-1]))
-                        conn.commit()
-                    except Exception as e:
-                        print(e)
+                    c.execute("DELETE FROM funperm WHERE role_id='{r}' AND guild_id='{g}' AND fun='{f}'".format(r=role_id, g=message.guild.id, f=command[i-1]))
+                    conn.commit()
+
                 else:
-                    try:
-                        c.execute("INSERT INTO funperm (role_id, guild_id, fun) VALUES ('{r}', '{g}', '{f}')".format(r=role_id, g=message.guild.id, f=command[i-1]))
-                        conn.commit()
-                    except Exception as e:
-                        print(e)
+                    c.execute("INSERT INTO funperm (role_id, guild_id, fun) VALUES ('{r}', '{g}', '{f}')".format(r=role_id, g=message.guild.id, f=command[i-1]))
+                    conn.commit()
+
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
         await message.channel.send('Insufficient mod_perm Parameters')
