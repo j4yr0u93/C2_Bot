@@ -73,7 +73,7 @@ async def mod_perm(message):
                     c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                     conn.commit()
                 else:
-                    c.execute('INSERT INTO funperm VALUES (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
+                    c.execute('INSERT INTO funperm VALUES role_id={r}, guild_id={g}, fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                     conn.commit()
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
