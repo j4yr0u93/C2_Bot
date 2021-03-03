@@ -44,7 +44,6 @@ async def on_message(message):
                 except Exception as e:
                     print(e)
             else:
-                print(c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=message.author.id, g=message.guild.id)).fetchall())
                 await message.channel.send('Insufficient Function Permissions')
 
 
@@ -74,6 +73,8 @@ async def mod_perm(message):
                 if command[i-1] in c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall():
                     try:
                         c.execute("DELETE FROM funperm WHERE role_id='{r}' AND guild_id='{g}' AND fun='{f}'".format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        print(c.execute("SELECT 1 FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
+                        print(c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role_id, g=message.guild.id)).fetchall())
                         conn.commit()
                     except Exception as e:
                         print(e)
