@@ -72,15 +72,19 @@ async def mod_perm(message):
             for i in range(len(command)):
                 if command[i-1] in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                     try:
+                        print('A')
                         c.execute('DELETE * FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
                     except Exception as e:
+                        print('B')
                         print(e)
                 else:
                     try:
+                        print('C')
                         c.execute('INSERT INTO funperm VALUES role_id={r}, guild_id={g}, fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
                     except Exception as e:
+                        print('D')
                         print(e)
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
