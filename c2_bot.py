@@ -44,6 +44,7 @@ async def on_message(message):
                 except Exception as e:
                     print(e)
             else:
+                print(c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=message.author.id, g=message.guild.id)).fetchall())
                 await message.channel.send('Insufficient Function Permissions')
 
 
