@@ -4,6 +4,7 @@ import sqlite3
 
 client = discord.Client()
 conn = sqlite3.connect('c2_bot.db')
+conn.row_factory = lambda cursor, row: row[0]
 c = conn.cursor()
 
 from C2_Bot.mods import *
@@ -37,7 +38,7 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
-            elif c.execute('SELECT EXISTS(SELECT * FROM funperm WHERE role_id={r} AND guild_id={g} AND fun={f})'.format(r=message.author.id, g=message.guild.id, f=command)):
+            elif command in fun_check := c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g})'.format(r=role_id, g=message.guild.id)).fetchcall():
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
@@ -69,7 +70,7 @@ async def mod_perm(message):
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
             for i in range(len(command)):
-                if c.execute('SELECT EXISTS(SELECT * FROM funperm WHERE role_id={r} AND guild_id={g} AND fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1])):
+                if command[i-1] in fun_check := c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g})'.format(r=role_id, g=message.guild.id)).fetchcall():
                     try:
                         c.execute('DELETE * FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
