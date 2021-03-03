@@ -82,7 +82,7 @@ async def mod_perm(message):
                 else:
                     try:
                         print('C')
-                        c.execute('INSERT INTO funperm VALUES role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        c.execute('INSERT INTO funperm VALUES {r}, {g}, {f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
                     except Exception as e:
                         print('D')
