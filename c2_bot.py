@@ -70,11 +70,17 @@ async def mod_perm(message):
         if valid_role and valid_fun:
             for i in range(len(command)):
                 if c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1])):
-                    c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
-                    conn.commit()
+                    try:
+                        c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        conn.commit()
+                    except Exception as e:
+                        print(e)
                 else:
-                    c.execute('INSERT INTO funperm VALUES role_id={r}, guild_id={g}, fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
-                    conn.commit()
+                    try:
+                        c.execute('INSERT INTO funperm VALUES role_id={r}, guild_id={g}, fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
+                        conn.commit()
+                    except Exception as e:
+                        print(e)
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
         await message.channel.send('Insufficient mod_perm Parameters')
