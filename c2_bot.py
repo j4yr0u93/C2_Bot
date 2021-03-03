@@ -69,7 +69,7 @@ async def mod_perm(message):
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
             for i in range(len(command)):
-                if c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1])):
+                if c.execute('SELECT EXISTS(SELECT 1 FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f}))'.format(r=role_id, g=message.guild.id, f=command[i-1])):
                     try:
                         c.execute('DELETE FROM funperm WHERE (role_id={r}, guild_id={g}, fun={f})'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
