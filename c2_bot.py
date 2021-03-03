@@ -38,7 +38,7 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
-            elif command in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchcall():
+            elif command in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
@@ -70,7 +70,7 @@ async def mod_perm(message):
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
             for i in range(len(command)):
-                if command[i-1] in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchcall():
+                if command[i-1] in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                     try:
                         c.execute('DELETE * FROM funperm WHERE WHERE role_id={r} AND guild_id={g} AND fun={f}'.format(r=role_id, g=message.guild.id, f=command[i-1]))
                         conn.commit()
