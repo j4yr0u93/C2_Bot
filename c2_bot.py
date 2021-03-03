@@ -38,7 +38,7 @@ async def on_message(message):
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
-            elif command in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
+            elif command in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=message.author.id, g=message.guild.id)).fetchall():
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
