@@ -70,6 +70,7 @@ async def mod_perm(message):
             await message.channel.send('Invalid Function Input')
         if valid_role and valid_fun:
             print(role_id)
+            type(role_id)
             for i in range(len(command)):
                 if command[i-1] in c.execute('SELECT * FROM funperm WHERE role_id={r} AND guild_id={g}'.format(r=role_id, g=message.guild.id)).fetchall():
                     try:
