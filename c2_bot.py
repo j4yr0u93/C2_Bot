@@ -21,7 +21,7 @@ from C2_Bot import __version__, discon, mod_list
 
 def main():
     return
-
+#function for reading for C2 bot commands
 @client.event
 async def on_message(message):
     #ignore bots
@@ -29,27 +29,34 @@ async def on_message(message):
         return
     #run a command if prexix matches and 'command' after prefix is in client_functions
     elif message.content.startswith(discon['options']['PREFIX']):
+        #parse command string into parts
         command_string = message.content
         command_parse = command_string.split()
         command = command_parse[0][len(discon['options']['PREFIX']):]
+        #if command is a client function listed then
         if command in client_functions:
+            #check if user is an admin on the guild
             if message.author.guild_permissions.administrator:
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
+            #if any of the users guild x role combos have that function entry in the permission db
             elif any([command in c.execute("SELECT fun FROM funperm WHERE role_id='{r}' AND guild_id='{g}'".format(r=role.id, g=message.guild.id)).fetchall() for role in message.author.roles]):
                 try:
                     await client_functions[command](message = message)
                 except Exception as e:
                     print(e)
+            #if none of these are true then the message author does not have sufficient permissions
             else:
                 await message.channel.send('Insufficient Function Permissions')
 
 
-
+#toggle function permission on a guild for a role
 async def mod_perm(message):
+    #parse message
     mod_perm_raw = message.content.split()
+    #set defaults of check
     valid_role = False
     valid_fun = False
     c_new = []
@@ -77,7 +84,6 @@ async def mod_perm(message):
                 else:
                     c.execute("INSERT INTO funperm (role_id, guild_id, fun) VALUES ('{r}', '{g}', '{f}')".format(r=role_id, g=message.guild.id, f=command[i-1]))
                     conn.commit()
-
             await message.channel.send('Permissions for {r} updated successfully!'.format(r=target_role.name))
     else:
         await message.channel.send('Insufficient mod_perm Parameters')
