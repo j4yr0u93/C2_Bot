@@ -52,7 +52,7 @@ async def related(message, spotify_client = get_spotify_client()):
     await print(related_data)
 
 #async def song_rec(message, spotify_client = get_spotify_client()):
-#    '''Spotify song reccomendation function that takes a song URL and returns recommendations'''
+#    '''Spotify song recommendation function that takes a song URL and returns recommendations'''
 #    search_raw = message.content.split()
 #    print(search_raw[2])
 #    track_recs = spotify_client.recommendations(seed_tracks=search_raw[2], limit=search_raw[1])

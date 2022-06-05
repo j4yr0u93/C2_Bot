@@ -2,7 +2,9 @@ import asyncio
 import discord
 import sqlite3
 
+#establishing discord bot client and going online
 client = discord.Client()
+#establishing connection to bot sqlite database
 conn = sqlite3.connect('c2_bot.db')
 conn.row_factory = lambda cursor, row: row[0]
 c = conn.cursor()
